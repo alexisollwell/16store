@@ -16,26 +16,45 @@ class _LoginDesignState extends State<LoginDesign> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(title: Text("Login"),centerTitle: true,),
+      appBar: AppBar(
+        title: const Text("Login"),
+        centerTitle: true,
+      ),
       body: LayoutBuilder(
-        builder: (_, constraints){
+        builder: (_, constraints) {
           return Column(
             children: [
-              const Spacer(flex: 2,),
+              const Spacer(),
+              Container(
+                height: constraints.constrainHeight() * 0.3,
+                width: constraints.constrainWidth(),
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                ),
+                child: Center(
+                  child: Image.asset(
+                    "assets/store.jpeg",
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              const Spacer(flex: 1),
               LoginTextfield(
                 icon: Icons.person,
                 width: constraints.constrainWidth(),
+                hintText: "Usuario",
               ),
               LoginTextfield(
                 icon: Icons.password,
                 width: constraints.constrainWidth(),
+                hintText: "Contraseña",
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text("Olvidaste tu contraseña",style: urlStyles,)
+                    Text("Olvidaste tu contraseña", style: urlStyles)
                   ],
                 ),
               ),
@@ -43,17 +62,17 @@ class _LoginDesignState extends State<LoginDesign> {
               BotonChido(
                 texto: "Iniciar Sesión",
                 color: Colors.orange,
-                ancho: constraints.constrainWidth()*0.5,
-                alPrecionar: (){},
+                ancho: constraints.constrainWidth() * 0.5,
+                alPrecionar: () {},
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Registrate",style: urlStyles,)
+                  Text("Registrate", style: urlStyles)
                 ],
               ),
-              const Spacer(flex: 2,),
+              const Spacer(flex: 2),
             ],
           );
         },
@@ -61,3 +80,4 @@ class _LoginDesignState extends State<LoginDesign> {
     );
   }
 }
+

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class LoginTextfield extends StatelessWidget {
   final double width;
   final IconData icon;
+  final String hintText;
   const LoginTextfield({
-    super.key, required this.width, required this.icon,
+    super.key, required this.width, required this.icon,  required this.hintText,
   });
 
   @override
@@ -25,7 +26,15 @@ class LoginTextfield extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Row(
           children: [
-            Icon(icon,color: Colors.black,size: 30,)
+            Icon(icon, color: Colors.black, size: 30),
+            Expanded(
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: hintText,
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
           ],
         ),
       ),
