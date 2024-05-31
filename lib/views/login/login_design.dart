@@ -15,13 +15,22 @@ class _LoginDesignState extends State<LoginDesign> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(title: Text("Login"),centerTitle: true,),
+      backgroundColor: const Color.fromARGB(255, 243, 237, 237),
+      appBar: AppBar(
+        title: const Text("Login"),
+        centerTitle: true,
+      ),
       body: LayoutBuilder(
-        builder: (_, constraints){
+        builder: (_, constraints) {
           return Column(
             children: [
-              const Spacer(flex: 2,),
+              const CircleAvatar(
+                backgroundImage: NetworkImage(
+                  'https://static1.cbrimages.com/wordpress/wp-content/uploads/2019/11/Goku-Feature-Image.jpg',
+                ),
+                radius: 50, // Set a custom radius for the circle
+              ),
+              const Spacer(flex: 2),
               LoginTextfield(
                 icon: Icons.person,
                 width: constraints.constrainWidth(),
@@ -35,25 +44,25 @@ class _LoginDesignState extends State<LoginDesign> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text("Olvidaste tu contraseña",style: urlStyles,)
+                    Text("Olvidaste tu contraseña", style: urlStyles),
                   ],
                 ),
               ),
               const Spacer(),
               BotonChido(
                 texto: "Iniciar Sesión",
-                color: Colors.orange,
-                ancho: constraints.constrainWidth()*0.5,
-                alPrecionar: (){},
+                color: const Color.fromARGB(255, 0, 4, 255),
+                ancho: constraints.constrainWidth() * 0.5,
+                alPrecionar: () {},
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Registrate",style: urlStyles,)
+                  Text("Registrate", style: urlStyles),
                 ],
               ),
-              const Spacer(flex: 2,),
+              const Spacer(flex: 2),
             ],
           );
         },
@@ -61,3 +70,6 @@ class _LoginDesignState extends State<LoginDesign> {
     );
   }
 }
+
+
+
