@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:store/components/boton_chido.dart';
 import 'package:store/constants.dart';
 
@@ -16,44 +17,78 @@ class _LoginDesignState extends State<LoginDesign> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(title: Text("Login"),centerTitle: true,),
+      appBar: AppBar(
+        title: Text("Login"),
+        centerTitle: true,
+      ),
       body: LayoutBuilder(
-        builder: (_, constraints){
+        builder: (_, constraints) {
           return Column(
             children: [
-              const Spacer(flex: 2,),
-              LoginTextfield(
-                icon: Icons.person,
-                width: constraints.constrainWidth(),
+              const Spacer(
+                flex: 2,
               ),
-              LoginTextfield(
-                icon: Icons.password,
-                width: constraints.constrainWidth(),
+              CircleAvatar(
+                  radius: 80,
+                  backgroundImage: NetworkImage(
+                      'https://ps.w.org/login-customizer/assets/icon-256x256.png?rev=2455454'),
+                ),
+              SizedBox(
+                height: 20,
               ),
+              TextField(
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.person),
+                    hintText: 'Usuario',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(40.0),
+                      borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
+                    )),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.lock),
+                      hintText: 'Contrasena',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(40.0),
+                        borderSide: BorderSide(color: Colors.red, width: 2.0),
+                      ))),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text("Olvidaste tu contraseña",style: urlStyles,)
+                    Text(
+                      "Olvidaste tu contraseña",
+                      style: urlStyles,
+                    )
                   ],
                 ),
               ),
               const Spacer(),
               BotonChido(
                 texto: "Iniciar Sesión",
-                color: Colors.orange,
-                ancho: constraints.constrainWidth()*0.5,
-                alPrecionar: (){},
+                color: Colors.blue,
+                ancho: constraints.constrainWidth() * 0.5,
+                alPrecionar: () {},
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Registrate",style: urlStyles,)
+                  Text(
+                    "Registrate",
+                    style: urlStyles,
+                  )
                 ],
               ),
-              const Spacer(flex: 2,),
+              const Spacer(
+                flex: 2,
+              ),
             ],
           );
         },
