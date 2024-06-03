@@ -35,6 +35,12 @@ class _LoginDesignState extends State<LoginDesign> {
           return Column(
             children: [
               const Spacer(flex: 2),
+              // Imagen de logo
+              Image.asset(
+                'assets/images/logo.png',
+                width: constraints.constrainWidth() * 0.5,
+              ),
+              const Spacer(),
               LoginTextfield(
                 icon: Icons.person,
                 width: constraints.constrainWidth(),
@@ -63,7 +69,6 @@ class _LoginDesignState extends State<LoginDesign> {
                 color: Colors.orange,
                 ancho: constraints.constrainWidth() * 0.5,
                 alPrecionar: () {
-                  // Aquí puedes agregar la lógica para iniciar sesión
                   final usuario = _userController.text;
                   final contraseña = _passwordController.text;
                   print('Usuario: $usuario, Contraseña: $contraseña');
@@ -81,6 +86,10 @@ class _LoginDesignState extends State<LoginDesign> {
           );
         },
       ),
+    );
+  }
+}
+
     );
   }
 }
