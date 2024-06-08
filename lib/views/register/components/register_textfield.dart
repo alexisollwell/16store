@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 
-class LoginTextfield extends StatelessWidget {
+class RegisterTextField extends StatelessWidget {
   final double width;
   final IconData icon;
-  const LoginTextfield({
-    super.key,
+  final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
+  final String hintText;
+  final TextEditingController? controller;
+
+  const RegisterTextField({
+    Key? key,
     required this.width,
     required this.icon,
-  });
+    this.validator,
+    this.onChanged,
+    this.hintText = 'Enter text here',
+    this.controller,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +34,15 @@ class LoginTextfield extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: TextField(
+        child: TextFormField(
+          controller: controller,
           decoration: InputDecoration(
             icon: Icon(icon, color: Colors.black, size: 30),
-            hintText: 'Enter text here',
+            hintText: hintText,
+            border: InputBorder.none,
           ),
+          validator: validator,
+          onChanged: onChanged,
         ),
       ),
     );

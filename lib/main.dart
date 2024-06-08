@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:store/views/register/register.dart';
+import 'package:store/views/testin.dart';
 import 'views/login/login_design.dart';
 
 void main() {
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: true,
       ),
-      home: const LoginDesign(),
+      home: RegistroScreen(),
     );
   }
 }
