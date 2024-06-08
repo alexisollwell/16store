@@ -57,13 +57,61 @@ class _LoginDesignState extends State<LoginDesign> {
     super.dispose();
   }
 
-  
+  void _handleLogin() {
+    String username = _usernameController.text;
+    String password = _passwordController.text;
+
+    // Lógica de inicio de sesión (simulada)
+    if (username.isNotEmpty && password.isNotEmpty) {
+      // Mostrar diálogo de bienvenida
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Bienvenido'),
+            content: Text('Hola, $username!'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Cerrar'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      // Mostrar diálogo de error si los campos están vacíos
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Por favor, ingresa tu usuario y contraseña.'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Cerrar'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    print("Username: $username");
+    print("Password: $password");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Login"),
+        title: const Text("16Store"),
         centerTitle: true,
       ),
 
@@ -78,8 +126,8 @@ class _LoginDesignState extends State<LoginDesign> {
                   width: constraints.maxWidth * 0.3,
                   height: constraints.maxWidth * 0.3,
                   fit: BoxFit.cover,
-                ), //image.asset
-              ), //clipoval
+                ),
+              ),
               LoginTextfield(
                 icon: Icons.person,
                 width: constraints.constrainWidth(),
@@ -99,7 +147,7 @@ class _LoginDesignState extends State<LoginDesign> {
                     Text(
                       "Olvidaste tu contraseña",
                       style: urlStyles,
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -108,11 +156,7 @@ class _LoginDesignState extends State<LoginDesign> {
                 texto: "Iniciar Sesión",
                 color: Colors.orange,
                 ancho: constraints.constrainWidth() * 0.5,
-                alPrecionar: () {
-                  // Aquí puedes manejar el evento de iniciar sesión
-                  print("Username: ${_usernameController.text}");
-                  print("Password: ${_passwordController.text}");
-                },
+                alPrecionar: _handleLogin,
               ),
               const SizedBox(height: 10),
               Row(
@@ -121,7 +165,7 @@ class _LoginDesignState extends State<LoginDesign> {
                   Text(
                     "Registrate",
                     style: urlStyles,
-                  )
+                  ),
                 ],
               ),
               const Spacer(flex: 2),
