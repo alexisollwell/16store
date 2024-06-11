@@ -1,9 +1,10 @@
+// login_design.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:store/components/boton_chido.dart';
 import 'package:store/constants.dart';
-
-import 'components/login_textfield.dart';
+import 'package:store/views/login/login_logic.dart';
+import 'package:store/views/register/user_registration.dart';
 
 class LoginDesign extends StatefulWidget {
   const LoginDesign({super.key});
@@ -13,6 +14,15 @@ class LoginDesign extends StatefulWidget {
 }
 
 class _LoginDesignState extends State<LoginDesign> {
+  // Lógica del usuario
+  late LoginLogic loginLogic;
+
+  @override
+  void initState() {
+    super.initState();
+    loginLogic = LoginLogic();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +46,7 @@ class _LoginDesignState extends State<LoginDesign> {
                 height: 20,
               ),
               TextField(
+                controller: loginLogic.usuarioController,
                 decoration: InputDecoration(
                     prefixIcon: Icon(Icons.person),
                     hintText: 'Usuario',
@@ -46,6 +57,7 @@ class _LoginDesignState extends State<LoginDesign> {
               ),
               SizedBox(height: 10),
               TextField(
+                  controller: loginLogic.contrasenaController,
                   obscureText: true,
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.lock),
@@ -71,7 +83,9 @@ class _LoginDesignState extends State<LoginDesign> {
                 texto: "Iniciar Sesión",
                 color: Colors.orange,
                 ancho: constraints.constrainWidth() * 0.5,
-                alPrecionar: () {},
+                alPrecionar: () {
+                  loginLogic.iniciarSesion(context);
+                },
               ),
               const SizedBox(
                 height: 10,
@@ -79,10 +93,22 @@ class _LoginDesignState extends State<LoginDesign> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "Registrate",
-                    style: urlStyles,
-                  )
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => UserRegis()),
+                      );
+                    },
+                    child: Text(
+                      "Regístrate",
+                      style: TextStyle(
+                        color:
+                            Colors.blue, // Puedes personalizar el estilo aquí
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
                 ],
               ),
               const Spacer(
