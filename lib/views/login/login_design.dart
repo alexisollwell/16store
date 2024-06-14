@@ -2,6 +2,73 @@ import 'package:flutter/material.dart';
 import 'package:store/components/boton_chido.dart';
 import 'package:store/constants.dart';
 
+class LoginLogic {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  void handleLogin(BuildContext context) {
+    final email = usernameController.text;
+    final password = passwordController.text;
+
+    if (!_isValidEmail(email)) {
+      _showErrorDialog(context, 'Correo electrónico no válido');
+      return;
+    }
+
+    if (password.isEmpty) {
+      _showErrorDialog(context, 'La contraseña no puede estar vacía');
+      return;
+    }
+
+    // Aquí iría la lógica para manejar el inicio de sesión, por ejemplo, autenticarse con un servidor.
+    _showSuccessDialog(context, 'Inicio de sesión exitoso');
+  }
+
+  bool _isValidEmail(String email) {
+    final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
+    return emailRegex.hasMatch(email);
+  }
+
+  void _showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Error'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showSuccessDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Éxito'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
 
 class LoginTextfield extends StatelessWidget {
   final IconData icon;
@@ -38,7 +105,6 @@ class LoginTextfield extends StatelessWidget {
   }
 }
 
-
 class LoginDesign extends StatefulWidget {
   const LoginDesign({super.key});
 
@@ -47,63 +113,19 @@ class LoginDesign extends StatefulWidget {
 }
 
 class _LoginDesignState extends State<LoginDesign> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  late LoginLogic logic;
+
+  @override
+  void initState() {
+    logic = LoginLogic();
+    super.initState();
+  }
 
   @override
   void dispose() {
-    _usernameController.dispose();
-    _passwordController.dispose();
+    logic.usernameController.dispose();
+    logic.passwordController.dispose();
     super.dispose();
-  }
-
-  void _handleLogin() {
-    String username = _usernameController.text;
-    String password = _passwordController.text;
-
-    // Lógica de inicio de sesión (simulada)
-    if (username.isNotEmpty && password.isNotEmpty) {
-      // Mostrar diálogo de bienvenida
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Bienvenido'),
-            content: Text('Hola, $username!'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Cerrar'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-    } else {
-      // Mostrar diálogo de error si los campos están vacíos
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Error'),
-            content: Text('Por favor, ingresa tu usuario y contraseña.'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Cerrar'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
-
-    print("Username: $username");
-    print("Password: $password");
   }
 
   @override
@@ -114,7 +136,6 @@ class _LoginDesignState extends State<LoginDesign> {
         title: const Text("16Store"),
         centerTitle: true,
       ),
-
       body: LayoutBuilder(
         builder: (_, constraints) {
           return Column(
@@ -122,7 +143,7 @@ class _LoginDesignState extends State<LoginDesign> {
               const Spacer(flex: 2),
               ClipOval(
                 child: Image.asset(
-                  'assets/logo.jpeg',
+                  'assets/images/logo.jpeg',
                   width: constraints.maxWidth * 0.3,
                   height: constraints.maxWidth * 0.3,
                   fit: BoxFit.cover,
@@ -131,12 +152,12 @@ class _LoginDesignState extends State<LoginDesign> {
               LoginTextfield(
                 icon: Icons.person,
                 width: constraints.constrainWidth(),
-                controller: _usernameController,
+                controller: logic.usernameController,
               ),
               LoginTextfield(
                 icon: Icons.lock,
                 width: constraints.constrainWidth(),
-                controller: _passwordController,
+                controller: logic.passwordController,
                 isPassword: true,
               ),
               Padding(
@@ -156,7 +177,7 @@ class _LoginDesignState extends State<LoginDesign> {
                 texto: "Iniciar Sesión",
                 color: Colors.orange,
                 ancho: constraints.constrainWidth() * 0.5,
-                alPrecionar: _handleLogin,
+                alPrecionar: () => logic.handleLogin(context),
               ),
               const SizedBox(height: 10),
               Row(
