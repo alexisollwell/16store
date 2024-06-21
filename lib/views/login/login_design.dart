@@ -1,109 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:store/components/boton_chido.dart';
 import 'package:store/constants.dart';
-
-class LoginLogic {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
-  void handleLogin(BuildContext context) {
-    final email = usernameController.text;
-    final password = passwordController.text;
-
-    if (!_isValidEmail(email)) {
-      _showErrorDialog(context, 'Correo electrónico no válido');
-      return;
-    }
-
-    if (password.isEmpty) {
-      _showErrorDialog(context, 'La contraseña no puede estar vacía');
-      return;
-    }
-
-    // Aquí iría la lógica para manejar el inicio de sesión, por ejemplo, autenticarse con un servidor.
-    _showSuccessDialog(context, 'Inicio de sesión exitoso');
-  }
-
-  bool _isValidEmail(String email) {
-    final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
-    return emailRegex.hasMatch(email);
-  }
-
-  void _showErrorDialog(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Error'),
-          content: Text(message),
-          actions: <Widget>[
-            TextButton(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _showSuccessDialog(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Éxito'),
-          content: Text(message),
-          actions: <Widget>[
-            TextButton(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class LoginTextfield extends StatelessWidget {
-  final IconData icon;
-  final double width;
-  final TextEditingController controller;
-  final bool isPassword;
-
-  const LoginTextfield({
-    Key? key,
-    required this.icon,
-    required this.width,
-    required this.controller,
-    this.isPassword = false,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      child: Container(
-        width: width,
-        child: TextField(
-          controller: controller,
-          obscureText: isPassword,
-          decoration: InputDecoration(
-            prefixIcon: Icon(icon),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+import 'package:store/views/login/login_logic.dart';
+import 'package:store/views/login/components/login_textfield.dart';
+import 'package:store/views/register/register_screen.dart'; 
 
 class LoginDesign extends StatefulWidget {
   const LoginDesign({super.key});
@@ -183,9 +83,18 @@ class _LoginDesignState extends State<LoginDesign> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "Registrate",
-                    style: urlStyles,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => RegisterScreen(), 
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "Registrate",
+                      style: urlStyles,
+                    ),
                   ),
                 ],
               ),

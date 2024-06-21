@@ -1,32 +1,34 @@
 import 'package:flutter/material.dart';
 
 class LoginTextfield extends StatelessWidget {
-  final double width;
   final IconData icon;
+  final double width;
+  final TextEditingController controller;
+  final bool isPassword;
+
   const LoginTextfield({
-    super.key, required this.width, required this.icon,
-  });
+    Key? key,
+    required this.icon,
+    required this.width,
+    required this.controller,
+    this.isPassword = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 45,
-      width: width,
-      margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: Colors.black,
-          width: 2
-        )
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          children: [
-            Icon(icon,color: Colors.black,size: 30,)
-          ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: Container(
+        width: width,
+        child: TextField(
+          controller: controller,
+          obscureText: isPassword,
+          decoration: InputDecoration(
+            prefixIcon: Icon(icon),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
         ),
       ),
     );
